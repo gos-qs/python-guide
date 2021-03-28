@@ -206,7 +206,7 @@ There are many more such as IronPython (for C-Sharp compatibility), Jython (for 
 - python debugger, pdb, is super useful. if something throws an error and you can't figure out why, import pdb; pdb.pm() (pm for post-mortem) and you can explore the variable values from just before the error.
 - In spyder, go to preferences and set the variable explorer to show all variables, all caps all leading underscores and everything and you'll get a better sense as to what information the python interpreter has access to about each file by default.
 - use numpy as much as you can, those C speed ups are massive, but don't switch back and forth because the python and numpy data types are slightly different and require "marshalling" between them which removes any speed improvements.
-- be explicit with file paths, use os.path.join(), os.path.split(), os.path.splitext() etc to keep programs cross-platform. To get the current fullfile of a file that python is currently executing you can use os.path.abspath(os.path.dirname(__file__)) which comes in very handy all the time when referencing resources.
+- be explicit with file paths, use os.path.join(), os.path.split(), os.path.splitext() etc to keep programs cross-platform. To get the current fullfile of a file that python is currently executing you can use os.path.abspath(os.path.dirname(\_\_file\_\_)) which comes in very handy all the time when referencing resources.
 - document you functions as seen everywhere in github, triple quotes are multiline strings and can be used to give lots of detail about the functions. You can ad extra detail to functions by declaring the variable types and outputs with the notation:
 
 ```python
