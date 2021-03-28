@@ -53,13 +53,13 @@ brew install python@3.X
 Once installed, you should be able to open CMD (usually easiest to find by searching "cmd" in the programs) and run simple python commands such as:
 
 ```python
-python "my_varname = 'hello world!'; print(my_varname)"
+python -c "my_varname = 'hello world!'; print(my_varname)"
 ```
 
-"python" is the command and if in PATH the string that follows is the argument sent to python to be executed. Python treats the string as python encoded text, the first instruction is to assign the variable name 'my_varname' with the string value 'hello world!', the semicolon signifies the end of that instruction and is necessary if you have multiple commands on one line. The next instruction is to 'print' the value of the variable 'my_varname', internally the print command sends the value of 'my_varname' to the system standard output which is usually the console itself, hence you see the message returned. Another slightly longer example is:
+"python" is the command, -c means you're giving it a string directly to parse and execute, and if in PATH the string that follows is the argument sent to python to be executed. Python treats the string as python encoded text, the first instruction is to assign the variable name 'my_varname' with the string value 'hello world!', the semicolon signifies the end of that instruction and is necessary if you have multiple commands on one line. The next instruction is to 'print' the value of the variable 'my_varname', internally the print command sends the value of 'my_varname' to the system standard output which is usually the console itself, hence you see the message returned. Another slightly longer example is:
 
 ```python
-python "my_greeting = 'Hi there!'; my_name = 'Bob'; my_output = '{0}, {1}'.format(my_greeting, my_name); print(my_output)"
+python -c "my_greeting = 'Hi there!'; my_name = 'Bob'; my_output = '{0}, {1}'.format(my_greeting, my_name); print(my_output)"
 ```
 
 It does basically the same thing, but with a few more variables and using the builtin method .format() for string types.
