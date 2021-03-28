@@ -48,7 +48,7 @@ brew install python@3.X
 
 <br>
 
-![image](python_site)
+![image](python_site.png)
 
 Once installed, you should be able to open CMD (usually easiest to find by searching "cmd" in the programs) and run simple python commands such as:
 
@@ -157,7 +157,7 @@ I'm not sure how well spyder3 will work on py38, there are so many improvements 
 ### Code Structure
 
 Reuseable code is important, this guide indicates how python code should look. There's something about lines not exceeding 130 characters, but there are millions of cases where this restriction is taken so literally that it makes the code difficult to read, I have a 27" monitor and have to read of a thin column at the edge of the screen which is infuriating, so I tend to just go with what I feel is most readable in these cases.
-![PEP style guide](https://www.python.org/dev/peps/pep-0008/)
+[PEP style guide](https://www.python.org/dev/peps/pep-0008/)
 
 I'm not going to go on about package structure here, because there are dozens of examples and tutorials of that online and they're all the same. This closely relates to import statements, these are well defined but can appear erratic if you don't read about them first, and how they relate to __init__.py files. The first thing you should really get into the hang of is properly using import statements, and having a proper entry point to your code. eg, a directory structure like the following:
 
