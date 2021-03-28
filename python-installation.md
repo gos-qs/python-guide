@@ -77,7 +77,7 @@ You can open the file with notepad to view the actual python code.
 The biggest benefit of python3, closely followed by the vast amounts of open source libraries and examples, is the package management system. Packages are third party software that holds the true power of python, if you want to run complex mathematical functions you would make life much easier by using numpy, which ships with low level binaries compiled from C and C++, making it hundreds of times faster than performing similar computations in pure python. It also ships with model fitting methods and is a dependency of virtually ever scientific computing library in python, such as scikit-learn, scipy, tensorflow, and pandas.
 
 
-This seems easy enough so far, surely every programming language has that, what makes this so special? The problem that arises with having hundreds of thousands of open source libraries is that sometimes decisions are made in early development that affects a projects ability to make updates later when certain dependencies change their function syntaxes. This doesn't happen very often, but when it does it's a life saver to know that you can have one python environment segregated from another and the changes you make to dependency version wont affect the execution of other programs.
+This seems easy enough so far, surely every programming language has that, what makes this so special? The problem that arises with having hundreds of thousands of open source libraries is that sometimes decisions are made in early development that affects a projects ability to make updates later when certain dependencies change their function syntaxes. This doesn't happen very often, but when it does it's a life saver to know that you can have one python environment segregated from another and the changes you make to dependency version wont affect the execution of other programs. Simpler cases are when a dependency is being updated faster than the package is being maintained, so even though an updated dependency may work fine it may not have been tested and updated in the package version configs.
 
 
 The official python package manager is the Python Package Index, PyPI, which is a remote repository of open source projects written in python and sometimes using binaries as is the case for numpy. This uses a program called pip to install and maintain packages installed from PyPI. Python doesn't alway come with pip install, sometimes you have to download and run a small python script called get-pip.py, this can be found easily online. Your version of pip can be checked using the CMD command:
@@ -98,7 +98,7 @@ or if you know which version you want,
 pip install --upgrade pip==X.Y
 ```
 
-Before installing packages, we need to set up a Virtual Environment. All this really is is a folder that is seperate to you global installs, and when you run python commands instead of searching the global packages it searches only in this folder. This means that you can install specific versions of programs in one VEnv without affecting the build of other VEnvs. Most of these are the same, but one of the most common is called venv and comes with python.
+Before installing packages, we need to set up a Virtual Environment. All this really is is a folder that is separate to you global installs, and when you run python commands instead of searching the global packages it searches only in this folder. This means that you can install specific versions of programs in one V-Env without affecting the build of other V-Envs. Most of these are the same, but one of the most common is called venv and comes with python.
 
 You can create a venv called 'my_venv' by issuing the command in CMD:
 
@@ -192,7 +192,7 @@ Structuring code like this makes it much easier to refactor, maintain and deploy
 
 ### Python Interpreters
 
-The last thing I want to mention is the existence of alternative interpreters. Python is an interpreted language, and because of reasons i'm not going to go into it makes it relatively slow to execute. This meant lots of devs spent time on alternative python implementations to speed it up. Using these often has intricate subtleties and limitations and can cause problems if you're not careful.
+The last thing I want to mention is the existence of alternative interpreters. Python is an interpreted language, and because of reasons i'm not going to go into it makes it relatively slow to execute, but if you're interested you can find a cool article [here](https://www.aosabook.org/en/500L/a-python-interpreter-written-in-python.html). This meant lots of devs spent time on alternative python implementations to speed it up. Using these often has intricate subtleties and limitations and can cause problems if you're not careful.
 
 Probably the easiest one to get started with is PyPy which is a JIT compiled version of python code, similar to C-Sharp and Java. It is mostly a drop-in replacement for the standard python interpreter but executes in as little as just 20% of the speed. This is because before the program is executed a compiler written in python parses the code into an intermediary code doing most of the work before runtime, at runtime when all the states of the variables are known the compilation is completed and executed. This is called Just In Time compilation. Most python code executes faster using this but projects that make heavy use of C binaries do not and sometimes run slower. A more complete list of what class of problems benefit is available on the PyPy website.
 
@@ -204,7 +204,7 @@ There are many more such as IronPython (for C-Sharp compatibility), Jython (for 
 ### Final Notes:
 
 - python debugger, pdb, is super useful. if something throws an error and you can't figure out why, import pdb; pdb.pm() (pm for post-mortem) and you can explore the variable values from just before the error.
-- In spyder, go to preferences and set the varible explorer to show all variables, all caps all leading underscores and everything and you'll get a better sense as to what information the python interpreter has access to about each file by default.
+- In spyder, go to preferences and set the variable explorer to show all variables, all caps all leading underscores and everything and you'll get a better sense as to what information the python interpreter has access to about each file by default.
 - use numpy as much as you can, those C speed ups are massive, but don't switch back and forth because the python and numpy data types are slightly different and require "marshalling" between them which removes any speed improvements.
 - be explicit with file paths, use os.path.join(), os.path.split(), os.path.splitext() etc to keep programs cross-platform. To get the current fullfile of a file that python is currently executing you can use os.path.abspath(os.path.dirname(__file__)) which comes in very handy all the time when referencing resources.
 - document you functions as seen everywhere in github, triple quotes are multiline strings and can be used to give lots of detail about the functions. You can ad extra detail to functions by declaring the variable types and outputs with the notation:
