@@ -44,7 +44,7 @@ brew install python@3.X
 
 <br>
 
-**python is just a text interpreter, it requires no special compilation or IDE to write or run code**
+**pure python is just a text interpreter, it requires no special compilation or IDE to write or run code**
 
 <br>
 
@@ -159,7 +159,7 @@ I'm not sure how well spyder3 will work on py38, there are so many improvements 
 Reuseable code is important, this guide indicates how python code should look. There's something about lines not exceeding 130 characters, but there are millions of cases where this restriction is taken so literally that it makes the code difficult to read, I have a 27" monitor and have to read of a thin column at the edge of the screen which is infuriating, so I tend to just go with what I feel is most readable in these cases.
 [PEP style guide](https://www.python.org/dev/peps/pep-0008/)
 
-I'm not going to go on about package structure here, because there are dozens of examples and tutorials of that online and they're all the same. This closely relates to import statements, these are well defined but can appear erratic if you don't read about them first, and how they relate to __init__.py files. The first thing you should really get into the hang of is properly using import statements, and having a proper entry point to your code. eg, a directory structure like the following:
+I'm not going to go on about package structure here, because there are dozens of examples and tutorials of that online and they're all the same. This closely relates to import statements, these are well defined but can appear erratic if you don't read about them first, and how they relate to \_\_init\_\_.py files. The first thing you should really get into the hang of is properly using import statements, and having a proper entry point to your code. eg, a directory structure like the following:
 
 ```script
 my_proj/
@@ -185,29 +185,29 @@ if __name__ == "__main__": # line 2 - just python notation for "is this file bei
 
 ```
 
-when line 1 is executed, python navigates to the src directory and searches for an __init__ file to execute, if one is found it executes it, this can be used to initialise anything for the direc, such as environment variables, locations in the PATH, whatever, it's just python code so it can do anything python does. After that, python goes to src/api.py and executes that within it's own namespace, after it has run python searches that new namespace for the handles (get_map, post_map, add_marker) which can be functions names, class names, variables, anything. in this case they're probably functions because after line 2 get_map() is called and add_marker() is called.
+when line 1 is executed, python navigates to the src directory and searches for an \_\_init\_\_.py file to execute, if one is found it executes it, this can be used to initialise anything for the direc, such as environment variables, locations in the PATH, whatever, it's just python code so it can do anything python does. After that, python goes to src/api.py and executes that within it's own namespace, after it has run python searches that new namespace for the handles (get_map, post_map, add_marker) which can be functions names, class names, variables, anything. in this case they're probably functions because after line 2 get_map() is called and add_marker() is called.
 
 Structuring code like this makes it much easier to refactor, maintain and deploy and is also required if you ever want to add anything to PyPI.
 
 
-### Python Interpreters
+### Alternative Python Interpreters/Compilers
 
-The last thing I want to mention is the existence of alternative interpreters. Python is an interpreted language, and because of reasons i'm not going to go into it makes it relatively slow to execute, but if you're interested you can find a cool article [here](https://www.aosabook.org/en/500L/a-python-interpreter-written-in-python.html). This meant lots of devs spent time on alternative python implementations to speed it up. Using these often has intricate subtleties and limitations and can cause problems if you're not careful.
+The last thing I want to mention is the existence of alternative interpreters. Python is an interpreted language, and because of reasons i'm not going to go into it makes it relatively slow to execute, but if you're interested you can find a cool article [here](https://www.aosabook.org/en/500L/a-python-interpreter-written-in-python.html). The main interpreter is called CPython, because the user's code is written in python and the interpreter is written in C. This meant lots of devs spent time on alternative python implementations to speed it up. Using these often has intricate subtleties and limitations and can cause problems if you're not careful.
 
-Probably the easiest one to get started with is PyPy which is a JIT compiled version of python code, similar to C-Sharp and Java. It is mostly a drop-in replacement for the standard python interpreter but executes in as little as just 20% of the speed. This is because before the program is executed a compiler written in python parses the code into an intermediary code doing most of the work before runtime, at runtime when all the states of the variables are known the compilation is completed and executed. This is called Just In Time compilation. Most python code executes faster using this but projects that make heavy use of C binaries do not and sometimes run slower. A more complete list of what class of problems benefit is available on the PyPy website.
+Probably the easiest one to get started with is PyPy which is a JIT compiled version of python code, similar to C-Sharp and Java, so called because the user's code is written in python and the initial compiler is also written in python. Don't confuse PyPy and PyPI, the former is software for compiling and executing python encoded text and the latter is the acronym for the python package index. It is mostly a drop-in replacement for the standard python interpreter but executes in as little as just 20% of the speed. This is because before the program is executed a compiler written in python parses the code into an intermediary code doing most of the work before runtime, at runtime when all the states of the variables are known the compilation is completed and executed. This is called Just In Time compilation. Most python code executes faster using this but projects that make heavy use of C binaries do not and sometimes run slower. A more complete list of what class of problems benefit is available on the PyPy website.
 
-Another interpreter is the Cython project, python with C data types. This is a very cool project to write super high speed C code and can see programs execute in as little as 5% of the time of a standard python interpreted program. But, there's some conditions. You can get good speed improvements out of the box, but to get the most you have to alter the python syntax which is not backwards compatible with the original python interpreter which is quite a big drawback.
+Another interpreter is the Cython project, python with C data types. This is a very cool project to generate and compile super high speed C code from pure python code and can see programs execute in as little as 5% of the time of a standard pure-python interpreted program. But, there's some conditions. You can get good speed improvements out of the box, but to get the most you have to alter the python syntax which is not backwards compatible with the original python interpreter which is quite a big drawback.
 
-There are many more such as IronPython (for C-Sharp compatibility), Jython (for Java compatibility), PythonNet (presumably for .NET, Windows native code), don't use stackless this is dead since the introduction of asyncio into the python standard library.
+There are many more such as IronPython (for C-Sharp compatibility), Jython (for Java compatibility), PythonNet (presumably for .NET, Windows native code), don't use stackless this is pretty much dead since the introduction of asyncio into the python standard library.
 
 
 ### Final Notes:
 
 - python debugger, pdb, is super useful. if something throws an error and you can't figure out why, import pdb; pdb.pm() (pm for post-mortem) and you can explore the variable values from just before the error.
 - In spyder, go to preferences and set the variable explorer to show all variables, all caps all leading underscores and everything and you'll get a better sense as to what information the python interpreter has access to about each file by default.
-- use numpy as much as you can, those C speed ups are massive, but don't switch back and forth because the python and numpy data types are slightly different and require "marshalling" between them which removes any speed improvements.
+- use numpy as much as you can for numerical-heavy modules, those C speed ups are massive, but don't switch back and forth because the python and numpy data types are slightly different and require "marshalling" between them which eats into any speed improvements.
 - be explicit with file paths, use os.path.join(), os.path.split(), os.path.splitext() etc to keep programs cross-platform. To get the current fullfile of a file that python is currently executing you can use os.path.abspath(os.path.dirname(\_\_file\_\_)) which comes in very handy all the time when referencing resources.
-- document you functions as seen everywhere in github, triple quotes are multiline strings and can be used to give lots of detail about the functions. You can ad extra detail to functions by declaring the variable types and outputs with the notation:
+- document your functions as per examples seen everywhere in large github projects, triple quotes are multiline strings and can be used to give lots of detail about the functions. You can add extra detail to functions by declaring the variable types and outputs with the notation:
 
 ```python
 def test_func(a:int, b:str = None, c:datetime = None) -> float or None:
