@@ -12,7 +12,7 @@ This guide references windows, but the same applies to linux and osx, just with 
 
 ### Download
 
-["First, download python"](https://www.python.org/downloads/windows/)
+[First, download python](https://www.python.org/downloads/windows/)
 
 The "latest release" is the version currently being developed by the open source dev community, it might have some bugs so go for the "stable release".
 
@@ -74,13 +74,13 @@ You can open the file with notepad to view the actual python code.
 
 ### Package Managers and Virtual Environments
 
-The biggest benefit of python3, closely followed by the vast amounts of open source libraries and examples, is the package management system. Packages are third party software that holds the true power of python, if you want to run complex mathematical functions you would make life much easier by using numpy, which ships with low level binaries compiled from C and C++, making it hundreds of times faster than performing similar computations in pure python. It also ships with model fitting methods and is a dependency of virtually ever scientific computing library in python, such as scikit-learn, scipy, tensorflow, and pandas.
+The biggest benefit of python3, closely followed by the vast amounts of open source libraries and examples, is the package management system. Packages are third party software that holds the true power of python, if you want to run complex mathematical functions you would make life much easier by using numpy, which ships with low level binaries compiled from C and C++, making it hundreds of times faster than performing similar computations in pure python. It also ships with model fitting methods and is a dependency of virtually every scientific computing library in python, such as scikit-learn, scipy, tensorflow, and pandas.
 
 
-This seems easy enough so far, surely every programming language has that, what makes this so special? The problem that arises with having hundreds of thousands of open source libraries is that sometimes decisions are made in early development that affects a projects ability to make updates later when certain dependencies change their function syntaxes. This doesn't happen very often, but when it does it's a life saver to know that you can have one python environment segregated from another and the changes you make to dependency version wont affect the execution of other programs. Simpler cases are when a dependency is being updated faster than the package is being maintained, so even though an updated dependency may work fine it may not have been tested and updated in the package version configs.
+This seems easy enough so far, surely every programming language has that, what makes this so special? The problem that arises with having hundreds of thousands of open source libraries is that sometimes decisions are made in early development that affects a projects ability to make updates later when certain dependencies change their function syntaxes. This doesn't happen very often, but when it does it's a life saver to know that you can have one python environment segregated from another and the changes you make to dependency versions wont affect the execution of programs executed from other virtual environments. Similar useful cases are when a dependency is being updated faster than the package is being maintained, so even though an updated dependency may work fine it may not have been tested and updated in the package version configs.
 
 
-The official python package manager is the Python Package Index, PyPI, which is a remote repository of open source projects written in python and sometimes using binaries as is the case for numpy. This uses a program called pip to install and maintain packages installed from PyPI. Python doesn't alway come with pip install, sometimes you have to download and run a small python script called get-pip.py, this can be found easily online. Your version of pip can be checked using the CMD command:
+The official python package manager is the Python Package Index, PyPI, which is a remote repository of open source projects written in python and sometimes using high-speed compiled binaries as is the case for numpy, tensorflow and others. This uses a program called 'pip' to install and maintain packages installed from PyPI. Python doesn't alway come with pip installed, sometimes you have to download and run a small python script called get-pip.py, this can be found easily online. Your version of pip can be checked using the CMD command:
 
 ```Powershell
 pip --version
@@ -98,7 +98,7 @@ or if you know which version you want,
 pip install --upgrade pip==X.Y
 ```
 
-Before installing packages, we need to set up a Virtual Environment. All this really is is a folder that is separate to you global installs, and when you run python commands instead of searching the global packages it searches only in this folder. This means that you can install specific versions of programs in one V-Env without affecting the build of other V-Envs. Most of these are the same, but one of the most common is called venv and comes with python.
+Before installing packages, we need to set up a Virtual Environment. This is really just a folder that separates your globally installed packages from your locally installed packages, and when you run python commands instead of searching the global packages location it first searches the location defined by the active virtual environment. This means that you can install specific versions of programs in one virtual environment without affecting the build of other virtual environments. Most of these venv-like programs work the same way, but one of the most common is called venv and comes with python.
 
 You can create a venv called 'my_venv' by issuing the command in CMD:
 
@@ -112,7 +112,19 @@ which takes a few seconds. You can see the venv by then typing 'dir', you can se
 my_venv\Scripts\activate.bat
 ```
 
-Which sets your PATH to point to the python version specified in this venv as well as to the versions of packages that are installed by this venv. You can experiment with this by creating two different venvs, in one of them install the latest version of some package such as:
+or in unix:
+
+```bash
+source ~/my_venv/bin/activate
+```
+
+Which sets your PATH to point to the python version specified in this venv as well as to the versions of packages that are installed by this venv. You can see all the different options that can be passed to the 'python' command by typing:
+
+```Powershell
+python -h
+```
+
+which lists all the possible arguments and what they mean, more information can be found online. You can experiment with using multiple venvs by creating two different venvs, in one of them install the latest version of some package such as:
 
 ```Powershell
 env1\Scripts\activate.bat
@@ -132,7 +144,9 @@ print(numpy.__version__)
 
 and you should see the version output to console. It may seem like this problem of version control wouldn't come up often, but when it does you'll be glad that you've properly prepared for it.
 
-There are a handful of package managers, one of the more popular is anaconda. Personally I avoid using anaconda distributions because my last experience a couple of years ago was of a deathly slow package manager and no end of problems with version control between the packages downloaded from pip (python package index, PyPI, note, NOT PyPy) and those downloaded from conda. The conda index is usually a few months behind the PyPI which can cause a lot of frustration and the virtual environments are less supported throughout other programs that rely on them, such as in linux supervisord and Celery i've seen threads of frustration over them not working as expected. That said, I do like the Spyder IDE they've produced, I think especially for a beginner or data scientist the variable explorer is better than any other IDE. The version in 3.3 was my preferred but it supports less types in spyder4, but spyder3 support post-python3.6 outside of conda is crap, so it's a bit of a tradeoff of what you want, that's most of the reason as to why I still use python3.6.
+Virtual environments rely on environment variables, these are great for many things relating to a project as they're common for storing password, usernames, directory strings to important folders etc which are necessary to make a program run but for security and flexibility reasons would be a blunder to store hardcoded in the program. These are easily accessible/edited in python programs using the os.environ attribute. Note, the search path 'PATH' has its own attribute at sys.path.
+
+There are a handful of package managers, one of the more popular is anaconda. Personally I avoid using anaconda distributions because my last experience a couple of years ago was of a deathly slow package manager and no end of problems with version control between the packages downloaded from pip (python package index, PyPI, note, NOT PyPy) and those downloaded from conda. The conda index is usually a few months behind the PyPI which can cause a lot of frustration and the virtual environments are less supported throughout other programs that rely on them, such as in linux supervisord and Celery i've seen threads of frustration over them not working as expected. That said, I do like the Spyder IDE they've produced, I think especially for a beginner or data scientist the variable explorer is worth more than any other IDE's benefits. Spyder3.3 was my preferred version as it works better for exploring custom objects than in Spyder4 even though Spyder4 is much faster, but Spyder3 support post-python3.6 outside of conda is bad, so it's a bit of a tradeoff of what you want - that's most of the reason as to why I still use python3.6.
 
 
 ### Interactive Development Environments - IDEs
@@ -151,13 +165,12 @@ OR
 pip install spyder==4.*
 ```
 
-I'm not sure how well spyder3 will work on py38, there are so many improvements that make spyder4 much better but i've got one project where I need the variable explorer to check things at the minute and it doesn't work the same in spyder4 for exploring objects, once i've got that finished i'll probably migrate up a few versions. Spyder also has a very useful IPython console for manipulating data on the go.
+I'm not sure how well Spyder3 will work on py38, there are so many improvements that make Spyder4 much better but i've got one project where I need the variable explorer to check things at the minute and it doesn't work the same in Spyder4 for exploring objects, once i've got that finished I'll probably migrate up a few versions. Spyder also has a very useful IPython console for manipulating data on the go.
 
 
 ### Code Structure
 
-Reuseable code is important, this guide indicates how python code should look. There's something about lines not exceeding 130 characters, but there are millions of cases where this restriction is taken so literally that it makes the code difficult to read, I have a 27" monitor and have to read of a thin column at the edge of the screen which is infuriating, so I tend to just go with what I feel is most readable in these cases.
-[PEP style guide](https://www.python.org/dev/peps/pep-0008/)
+Reusable code is important, this [PEP style guide](https://www.python.org/dev/peps/pep-0008/) indicates how python code should look. There's something about lines not exceeding 130 characters, but there are millions of cases where this restriction is taken so literally that it makes the code difficult to read, I have a 27" monitor and have to read of a thin column at the edge of the screen which is infuriating, so I tend to just go with what I feel is most readable in these cases.
 
 I'm not going to go on about package structure here, because there are dozens of examples and tutorials of that online and they're all the same. This closely relates to import statements, these are well defined but can appear erratic if you don't read about them first, and how they relate to \_\_init\_\_.py files. The first thing you should really get into the hang of is properly using import statements, and having a proper entry point to your code. eg, a directory structure like the following:
 
@@ -185,9 +198,9 @@ if __name__ == "__main__": # line 2 - just python notation for "is this file bei
 
 ```
 
-when line 1 is executed, python navigates to the src directory and searches for an \_\_init\_\_.py file to execute, if one is found it executes it, this can be used to initialise anything for the direc, such as environment variables, locations in the PATH, whatever, it's just python code so it can do anything python does. After that, python goes to src/api.py and executes that within it's own namespace, after it has run python searches that new namespace for the handles (get_map, post_map, add_marker) which can be functions names, class names, variables, anything. in this case they're probably functions because after line 2 get_map() is called and add_marker() is called.
+when line 1 is executed, python navigates to the src directory and searches for an \_\_init\_\_.py file to execute, if one is found it executes it, this can be used to initialise anything for the direc, such as environment variables, locations in the PATH, whatever, it's just python code so it can do anything python does. After that, python goes to src/api.py and executes that within its own namespace, after it has run python searches that new namespace for the handles (get_map, post_map, add_marker) which can be functions names, class names, variables, anything. In this case they're probably functions because after line 2 get_map() is called and add_marker() is called.
 
-Structuring code like this makes it much easier to refactor, maintain and deploy and is also required if you ever want to add anything to PyPI.
+Structuring code like this makes it much easier to refactor, maintain and deploy and is also required if you ever want to add anything to PyPI. That said, if you're working on something like a [kaggle](https://www.kaggle.com/) competition they usually make you use the Jupyter-style notebook for a submission, you can still split the parts of the module up into the file structure tree and import them but I think it's more common to see all the steps and definitions in the one document in a chronological order of use since it's basically a lesson and someone has to follow that and redeploy the data preprocessing and model inference to a production environment at some point.
 
 
 ### Alternative Python Interpreters/Compilers
@@ -204,7 +217,7 @@ There are many more such as IronPython (for C-Sharp compatibility), Jython (for 
 ### Final Notes:
 
 - python debugger, pdb, is super useful. if something throws an error and you can't figure out why, import pdb; pdb.pm() (pm for post-mortem) and you can explore the variable values from just before the error.
-- In spyder, go to preferences and set the variable explorer to show all variables, all caps all leading underscores and everything and you'll get a better sense as to what information the python interpreter has access to about each file by default.
+- In Spyder, go to preferences and set the variable explorer to show all variables, all caps all leading underscores and everything and you'll get a better sense as to what information the python interpreter has access to about each file by default.
 - use numpy as much as you can for numerical-heavy modules, those C speed ups are massive, but don't switch back and forth because the python and numpy data types are slightly different and require "marshalling" between them which eats into any speed improvements.
 - be explicit with file paths, use os.path.join(), os.path.split(), os.path.splitext() etc to keep programs cross-platform. To get the current fullfile of a file that python is currently executing you can use os.path.abspath(os.path.dirname(\_\_file\_\_)) which comes in very handy all the time when referencing resources.
 - document your functions as per examples seen everywhere in large github projects, triple quotes are multiline strings and can be used to give lots of detail about the functions. You can add extra detail to functions by declaring the variable types and outputs with the notation:
