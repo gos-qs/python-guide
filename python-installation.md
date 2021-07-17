@@ -2,13 +2,15 @@
 
 Guide for installing a stable and maintainable python3 environment in Windows. There are lots of way to download it, but most result in improperly managed packages which can lead to version-control nightmares. Eg, if programA requires programC-v1, but programB requires programC-v2 you will have no end of trouble if not properly segregating environments.
 
-This guide references windows, but the same applies to linux and osx, just with different commands. I use OSX and Linux myself. Windows is the worst.
+This guide can be used to install python3 for MacOS, Linux/UNIX-like and Windows, some commands between operating systems differ and the PATH setup also differs a little. I use MacOS and Linux myself. Windows is truly the worst. Windows doesn't have any dependencies on python2 so it's really difficult to brake anything, however there are lots of legacy programs on MacOS, Linux and UNIX-like systems which require that the command 'python' -> python2 rather than python3, so a little more care must be taken when fiddling with the PATH.
 
-|Command        | Windows                 | Unix                    |
-|---------------|-------------------------|-------------------------|
-|list directory |DIR                      |ls                       |
-|change direc   |CD $dirname              |cd $dirname              |
-|activate a venv|env1\Scripts\activate.bat|source env1/bin/activate |
+I reference Debian based linux in this guide, but there exists many flavours of linux with their own package managers so use the commands and syntax as appropriate to your package manager.
+
+|Command        | Windows                 | Debian-based linux, UNIX-like |
+|---------------|-------------------------|-------------------------------|
+|list directory |DIR                      |ls                             |
+|change direc   |CD $dirname              |cd $dirname                    |
+|activate a venv|env1\Scripts\activate.bat|source env1/bin/activate       |
 
 ### Download
 
@@ -38,15 +40,15 @@ echo $PATH
 
  For python, it means that from CMD/Powershell/terminal you can type "python" or "python3" and enter a simple python scripting shell to run python commands. You can quit from this by executing 'quit()'. Python is really just an alternative shell script engine for converting high level text into low level machine instructions. Any IDE (Interactive Development Environment) like Jupyter, PyCharm, or Spyder that you use isn't necessary to run or write python code it just makes it easier.
 
-#### linux
+#### Debian based linux
 
-Use the apt repository. DO NOT link 'python' -> 'python3', because lots of legacy linux systems require that 'python' -> 'python2.7'. Either rely on venv (described later) to get the right python you intend or use the alternative command 'python3' everywhere. You can install older versions of python3.X using the deadsnakes repo.
+Use the apt repository. DO NOT link 'python' -> 'python3', because lots of legacy linux systems require that 'python' -> 'python2.7'. Either rely on venv (described later) to get the right python you intend or use the alternative command 'python3' everywhere. You can install older versions of python3.X using the [deadsnakes](https://github.com/deadsnakes) repository via github or by adding the apt repo with the command: 'sudo add-apt-repository ppa:deadsnakes/ppa'.
 
 ```shell
 sudo apt install python3
 ```
 
-#### OSX
+#### MacOS / OSX
 
 Use Homebrew. May require some linking after installing. DO NOT link 'python' -> 'python3', because lots of legacy OSX systems require that 'python' -> 'python2.7'.
 
@@ -54,9 +56,13 @@ Use Homebrew. May require some linking after installing. DO NOT link 'python' ->
 brew install python@3.X
 ```
 
+#### Apple M1
+
+This is a bit more involved. If you require installation instructions for the Apple M1 chipset, see this [guide](m1-installation.md) before proceeding.
+
 <br>
 
-**Pure python is just a text interpreter, it requires no special compilation or IDE to write or execute code**
+**Pure python is just a text interpreter; it requires no special compilation or IDE to write or distribute code. To execute valid commands/code all that is required is a copy of the python interpreter**
 
 <br>
 
