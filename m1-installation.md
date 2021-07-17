@@ -1,5 +1,5 @@
 
-## Apple M1 chipset, python installation
+## Apple M1 chipset, python installation for ARM and for X86
 
 Programs compiled for Apple X86 chipsets will only work on Apple M1 chipsets if they are:
 
@@ -60,3 +60,8 @@ source py36_x86/bin/activate
 Which will point to your X86 installation of python3.X as well as the X86 installation of pip3 for this python3 installation, and maintain the path to valid package installs. Activate the venv and go ahead and try it by installing numpy, if you look at the download status messages you can see it fetches the X86 builds and installs them, and as long as you're using the 'Terminal-Rosetta' application to activate the venv and use the packages you should be fine. I like to use Spyder as my IDE, and I've not had any issues yet using this method to install as at the tie of writing I don't think they have an M1 build yet since it relies on so many external GUI libraries.
 
 Don't forget, make sure you have the correct terminal open when using the virtual envs. I've accidentally installed things to an X86 environment from the ARM terminal, it was solved by a simple 'pip uninstall <package>'' but there might be complex packages which wouldn't be such an easy blunder to fix.
+
+Closing notes, this Rosetta X86 emulation will work for most packages. The only package I've found to not work so far is Tensorflow, it won't even import it'll just crash the kernel every time. For projects where you need to have Tensorflow working as well as packages which don't have an M1 build, I'm not sure of a solution.
+
+Tensorflow-GPU can be enabled on the M1 by installing using mini-conda and the tensorflow-macos github repository, following the instructions in issue [#153](https://github.com/apple/tensorflow_macos/issues/153). You can confirm that your machine is using the GPU during training by monitoring the Activity Monitor whilst training a simple test script such as from
+[this question/answer](https://stackoverflow.com/questions/67352841/tensorflow-is-not-using-my-m1-macbook-gpu-during-training/67953428#67953428).
