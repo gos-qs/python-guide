@@ -12,7 +12,19 @@ The unofficial package manager for MacOS Homebrew is now fully supported for App
 
 Many python packages on the Python Package Index  aren't yet ported to the M1 chipset, so the only way to run these is by running a python environment through Rosetta2 and installing the X86 versions of these packages. After giving this some thought I decided that I didn't want 2 versions of Homebrew on my system, one for M1 and one for X86, this seemed like it would become horribly messy. So instead I decided to have the M1 Homebrew and manually download and install the X86 python3 versions I need.
 
-First, we need to set up a version of the 'Terminal' application which identifies itself as X86 and uses Rosetta2 by default. This is described in a lot of places such as in [this guide](https://medium.com/swlh/run-x86-terminal-apps-like-homebrew-on-your-new-m1-mac-73bdc9b0f343), essentially you're simply duplicating the 'Terminal' application, renaming as something like 'Terminal-Rosetta' and then in the 'Get Info' option for 'Terminal-Rosetta' you check the 'Open using Rosetta' checkbox and you're good to go. For good measure I also added both the Terminal and Terminal-Rosetta to my shortcut bar. When I set this up it required a little bit of juggling of permissions using chmod in order to rename the duplicated application but it wasn't anything too difficult. You can test the chipset type in either terminal version using the command:
+First, we need to set up a version of the 'Terminal' application which identifies itself as X86 and uses Rosetta2 by default. This is described in a lot of places such as in [this guide](https://medium.com/swlh/run-x86-terminal-apps-like-homebrew-on-your-new-m1-mac-73bdc9b0f343), essentially you're simply duplicating the 'Terminal' application, renaming as something like 'Terminal-Rosetta' and then in the 'Get Info' option for 'Terminal-Rosetta' you check the 'Open using Rosetta' checkbox and you're good to go. For good measure I also added both the Terminal and Terminal-Rosetta to my shortcut bar for ease of access. From a regular terminal window I ran the following:
+
+```bash
+cp /System/Applications/Utilities/Terminal.app ~/Applications/Terminal-Rosetta.app
+cd ~/Applications
+# check that you are now the owner and has permissions 755 (drwxr-xr-x)
+ls -al
+# if permissions don't match above, run the next lines
+chown $USER Terminal-Rosetta.app # make you the USER the owner
+chmod 755 Terminal-Rosetta.app # make permissions 755
+```
+
+On the new Terminal-Rosetta application icon (find with Finder) click 'Get Info' and then check the 'Open with Rosetta' option. You can test the chipset type in either terminal version using the command:
 
 ```bash
 uname -m
